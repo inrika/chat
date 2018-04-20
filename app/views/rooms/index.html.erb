@@ -1,2 +1,6 @@
-<h1>Rooms#index</h1>
-<p>Find me in app/views/rooms/index.html.erb</p>
+<% if @rooms.any? %>
+      <%= render @rooms%>
+  <%else %>
+    </ul>
+    <p>Be the first one to make a chatroom!</p>
+  <% end %>

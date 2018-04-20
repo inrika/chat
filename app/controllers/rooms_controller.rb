@@ -28,9 +28,12 @@ class RoomsController < ApplicationController
   end
 
   def show
+    @room = Room.find(params[:id])
+    @message = Message.new
   end
 
   def index
+    @rooms = Room.all
   end
 
   private
