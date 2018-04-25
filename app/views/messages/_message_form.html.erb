@@ -1,6 +1,6 @@
        <%= form_for @message, remote:true, authenticity_token: true do |f|%>
        <%=f.label :body, "Ваше сообщение" %>
-       <%= f.text_area :body, class: "form-control" %>
+       <%= f.text_area :body, class: "form-control", id: "message_body" %>
        <%=f.hidden_field :room_id, value: @room.id %>
-       <%=f.submit "Отправить", class: "btn btn-primary", style: "display: block" %>
+       <%=f.submit "Отправить", class: "btn btn-primary send_message", style: "display: block" , data: {send: "message"}%>
      <%end%>

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    !!@current_user
+    !!current_user
   end
 
   def log_out
@@ -23,8 +23,7 @@ class ApplicationController < ActionController::Base
   protected
 
     def authenticate_user!
-      logger.info  "езультат"
-      logger.info  logged_in?
+  #    logger.info  "Результат"
       redirect_to root_path unless logged_in?
     end
 end
