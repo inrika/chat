@@ -7,7 +7,7 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     if @room.save
-      @room_user = @room.room_users.build(user_id: current_user.id, room_id: @room.id, moderator: true)
+      @room_user = @room.room_users.build(user_id: current_user.id, room_id: @room.id, moderator: true, mute: false)
       @room_user.save
       logger.info @room_user
       respond_to do |format|

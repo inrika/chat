@@ -8,8 +8,13 @@
   </td>
   <td  >
     <% if is_moderator(@room) & ! room_user.moderator %>
-      <%= link_to 'Сделать модератором', room_room_user_path(id: room_user.id,room_id: @room.id), method: :patch%> <br>
-      <%= link_to 'Забанить', room_room_user_path(id: room_user.id,room_id: @room.id), method: :patch%> <br>
+      <%= link_to 'Сделать модератором', room_room_user_path(id: room_user.id,room_id: @room.id, moderator: true), method: :patch%> <br>
+      <% if room_user.mute  %>
+        <%= link_to 'Восстановить', room_room_user_path(id: room_user.id,room_id: @room.id, mute: false), method: :patch%>
+         <br>
+      <%else%>
+        <%= link_to 'Забанить', room_room_user_path(id: room_user.id,room_id: @room.id, mute: true), method: :patch%>
+      <%end%>
     <%end%>
 
     <% if (is_moderator(@room)) & (! room_user.moderator) %>

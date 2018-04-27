@@ -8,7 +8,11 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    Message.create!(user: current_user, room_id: data["room_id"], body: data["message"])
+    room = Room.find(data["room_id"])
+    !room.room_users.where(user_id:  current_user.id).first.mute
+    if !room.room_users.where(user_id:  current_user.id).first.mute
+      Message.create!(user: current_user, room_id: data["room_id"], body: data["message"])
+    end
   end
 
 end
