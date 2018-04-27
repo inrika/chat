@@ -8,7 +8,7 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    Message.create(user: current_user, room_id: data["room_id"], body: data["message"])
+    Message.create!(user: current_user, room_id: data["room_id"], body: data["message"])
   end
 
 end

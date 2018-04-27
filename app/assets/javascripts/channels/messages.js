@@ -6,26 +6,23 @@ App.messages = App.cable.subscriptions.create( "MessagesChannel",{
     //# Called when the subscription has been terminated by the server
   },
   received: function(data) {
-
+    $("#messages").removeClass('hidden')
     return $("#messages").append(data.message);
-    //return $("[data-chatroom='" + data.chatroom_id + "']").append(data.message);
   },
 
-  renderMessage: function (data){
-
-    return "<p> <b> "+data.user + " : </b>" + data.message + "</p>"
-  }
  });
 
   $(document).on('turbolinks:load', function() {
-    $("#message_body").keydown(function (event) {
+    $(".pre-scrollable").scrollTop = 9999;
+      $("#message_body").keydown(function (event) {
       if (event.which == 13) {
         var msg = event.target.value
         var roomId = $("[data-room]").data().room
         App.messages.send({message:msg, room_id: roomId})
         $("#message_body").val(" ")
+        var scroll = $(".pre-scrollable");
+        scroll.scrollTop(scroll.prop('scrollHeight'));
         return false;
-
         }
       });
       $(".send_message").on ("click",function(){
@@ -33,9 +30,9 @@ App.messages = App.cable.subscriptions.create( "MessagesChannel",{
         var roomId = $("[data-room]").data().room
         App.messages.send({message:msg, room_id: roomId})
         $("#message_body").val(" ")
+        var scroll = $(".pre-scrollable");
+        scroll.scrollTop(scroll.prop('scrollHeight')+10);
         return false;
       })
-
-
 
   });

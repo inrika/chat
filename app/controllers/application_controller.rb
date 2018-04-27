@@ -21,9 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
     def authenticate_user!
-  #    logger.info  "Результат"
       redirect_to root_path unless logged_in?
     end
 end

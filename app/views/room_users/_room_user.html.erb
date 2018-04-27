@@ -1,0 +1,23 @@
+<tr>
+  <td ><%=room_user.user.nickname%> </td>
+
+  <td  >
+    <% if room_user.moderator %>
+      модератор
+    <% end%>
+  </td>
+  <td  >
+    <% if is_moderator(@room) & ! room_user.moderator %>
+      <%= link_to 'Сделать модератором', room_room_user_path(id: room_user.id,room_id: @room.id), method: :patch%> <br>
+      <%= link_to 'Забанить', room_room_user_path(id: room_user.id,room_id: @room.id), method: :patch%> <br>
+    <%end%>
+
+    <% if (is_moderator(@room)) & (! room_user.moderator) %>
+      <%= link_to 'Удалить', room_room_user_path(id: room_user.id, room_id: @room.id),
+                method: :delete,
+                data: { confirm: 'Вы уверены?' }%>
+   <%end%>
+
+  </td>
+
+</tr>

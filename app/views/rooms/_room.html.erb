@@ -1,1 +1,12 @@
-<li><%= link_to room.title, room_path(room) %></li>
+<tr>
+  <td>
+    <%= link_to room.title, room_path(room) %>
+  </td>
+  <td>
+    <% if is_moderator(room) %>
+      <%= link_to "Удалить", room_path(room),
+                             method: :delete,
+                             data: { confirm: 'Вы уверены?' }%>
+    <%end%>
+  </td>
+</tr>

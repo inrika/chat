@@ -1,6 +1,11 @@
+<h3 class="text-primary"><%= current_user.nickname.capitalize%>, <small class="text-primary" > для вас доступны следующие комнаты: </small></h3>
 <% if @rooms.any? %>
+  <table class= "table">
+    <tbody>
       <%= render @rooms%>
+    </tbody>
+  </table>
   <%else %>
-    </ul>
-    <p>Be the first one to make a chatroom!</p>
+
+    <p>Вы не подписаны ни на одну комнату, создайте свою.</p>
   <% end %>

@@ -7,16 +7,17 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     if @room.save
-      @visitor = @room.visitors.build(user_id: current_user.id, room_id: @room.id, moderator: true)
+      @room_user = @room.room_users.build(user_id: current_user.id, room_id: @room.id, moderator: true)
+      @room_user.save
+      logger.info @room_user
       respond_to do |format|
         format.html { redirect_to @room }
         format.js
-      end
+    end
     else
       respond_to do |format|
-        flash[:notice] = {error: ["a chatroom with this topic already exists"]}
+        flash[:notice] = {error: ["Комната с таким названием существует"]}
         format.html { redirect_to new_room_path }
-        format.js { render template: 'chatrooms/chatroom_error.js.erb'}
       end
     end
   end
@@ -29,11 +30,19 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+    @users = @room.room_users
     @message = Message.new
   end
 
   def index
-    @rooms = Room.all
+    #@rooms = Room.all
+    @rooms = current_user.rooms
+  end
+
+  def destroy
+    @room = Room.find(params[:id])
+    @room.destroy
+    redirect_to rooms_path
   end
 
   private

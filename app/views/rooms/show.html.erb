@@ -1,16 +1,32 @@
-<div class="row col-md-8 col-md-offset-2">
+<div class="row col-md-6 col-md-offset">
   <h1><%=@room.title%></h1>
 
-<div class="panel panel-default">
-  <% if @room.messages.any? %>
-    <div class="panel-body" id="messages" data-room=<%=@room.id%>>
+<div class="panel panel-default pre-scrollable">
+
+    <div class="panel-body" id="messages" data-room=<%= @room.id %>>
       <%= render partial: 'messages/message', collection: @room.messages%>
     </div>
-  <%else%>
-
-  <%end%>
 </div>
 
 
   <%= render partial: 'messages/message_form', locals: {message: @message, room: @room}%>
+</div>
+
+<div class="row col-md-5 col-md-offset-1">
+  <h1>Пользователи</h1>
+
+
+
+      <table class="table ">
+        <thead>
+        </thead>
+        <tbody id="tablebody" >
+          <%= render partial: 'room_users/room_user', collection: @room.room_users%>
+        </tbody  >
+      </table>
+
+
+    <% if is_moderator(@room) %>
+      <%=link_to "Пригласить пользователя", room_users_path(room_id: @room.id) %>
+    <%end%>
 </div>

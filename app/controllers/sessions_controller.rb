@@ -10,14 +10,12 @@ class SessionsController < ApplicationController
       log_in (user.id)
       redirect_to root_path
     else
-      redirect_to login_path_path, flash[:notice] =  user.errors.messages
+      redirect_to login_path, flash[:notice] =  user.errors.messages
     end
   end
 
   def destroy
-
     log_out
-    #reset_session
     redirect_to root_path
   end
 
