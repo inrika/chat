@@ -4,9 +4,10 @@
   </td>
   <td>
     <% if is_moderator(room) %>
-      <%= link_to "Удалить", room_path(room),
+      <%= link_to "Удалить", room_path(room), remote: true,
                              method: :delete,
-                             data: { confirm: 'Вы уверены?' }%>
+                             data: { confirm: 'Вы уверены?'}%>
+
     <%end%>
   </td>
 </tr>

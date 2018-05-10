@@ -32,6 +32,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @users = @room.room_users
     @message = Message.new
+    @messages= @room.messages.order(created_at: :desc).limit(100).reverse
   end
 
   def index
@@ -42,7 +43,11 @@ class RoomsController < ApplicationController
   def destroy
     @room = Room.find(params[:id])
     @room.destroy
-    redirect_to rooms_path
+    respond_to do |format|
+      format.html { redirect_to rooms_path }
+      format.js
+    end
+  #  redirect_to rooms_path
   end
 
   private
